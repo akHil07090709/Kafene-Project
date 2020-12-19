@@ -121,5 +121,5 @@ function createTableRow(data) {
 }
 document.getElementById("sign-out").addEventListener("click", function (e) {
   localStorage.setItem("loginstatus", false);
-  window.location.href = "./login.html";
+  window.location.href = "./index.html";
 });
