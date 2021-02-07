@@ -1,9 +1,9 @@
-// console.log("script loaded");
 var status = JSON.parse(window.localStorage.getItem("loginstatus")) || false;
-// console.log(loginStatus);
-if (status == true) {
+console.log(status);
+if (status === "true") {
   window.location.href = "./orders.html";
 }
+
 var userName = document.querySelector(".login-form-username");
 var userPassword = document.querySelector(".login-form-password");
 document.getElementById("submit").addEventListener("click", function (e) {

@@ -1,4 +1,9 @@
 "use strict";
+var status = JSON.parse(window.localStorage.getItem("loginstatus")) || false;
+// console.log(status);
+if (status === "false") {
+  window.location.href = "./index.html";
+}
 // fetch orders data
 var orderData;
 fetch("https://5fc1a1c9cb4d020016fe6b07.mockapi.io/api/v1/orders")
@@ -53,7 +58,7 @@ function createTableRow(data) {
           <td class="order-date">
             ${data[i].orderDate} <br /><span class="order-time">${data[i].orderTime}</span>
           </td>
-          <td class="order-amount">${data[i].amount}</td>
+          <td class="order-amount">$${data[i].amount}</td>
           <td class="order-status">${data[i].orderStatus}</td>
         </tr>
       `);

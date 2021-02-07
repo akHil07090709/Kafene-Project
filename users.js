@@ -1,6 +1,10 @@
 $(document).ready(() => {
   // console.log("obj");
-
+  var status = JSON.parse(window.localStorage.getItem("loginstatus")) || false;
+  console.log(status);
+  if (status === "false") {
+    window.location.href = "./index.html";
+  }
   var tableData = [];
   fetch("https://5fc1a1c9cb4d020016fe6b07.mockapi.io/api/v1/users")
     .then(function (response) {
@@ -36,7 +40,6 @@ $(document).ready(() => {
   }
   $(`#reset`).click(() => {
     $(`#search-box`).value = "";
-
     rowMaking(tableData);
   });
   setInterval(() => {
@@ -48,10 +51,32 @@ $(document).ready(() => {
     }
   }, 0);
 
-  $("#search-box").on("keyup", function () {
-    let value = $(this).val();
-    let filteredData = search(value, tableData);
-    rowMaking(filteredData);
+  document.getElementById("cross").addEventListener("click", function (e) {
+    document.getElementById("search-box").value = "";
+  });
+
+  document.getElementById("searchForm").onsubmit = (e) => {
+    e.preventDefault();
+    const value = $("#search-box").val();
+    if (value.length >= 2) {
+      let filteredData = search(value, tableData);
+      rowMaking(filteredData);
+    } else {
+      alert("Please enter at least 2 characters");
+    }
+  };
+
+  $("#search-box").keypress(function (e) {
+    var key = e.which;
+    if (key == 13) {
+      // the enter key code
+      let value = $(this).val();
+      if (value.length >= 2) {
+        let filteredData = search(value, tableData);
+        rowMaking(filteredData);
+      } else {
+      }
+    }
   });
 
   function search(value, data) {
